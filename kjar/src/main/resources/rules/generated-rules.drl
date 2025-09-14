@@ -1,0 +1,848 @@
+package rules;
+import com.ftn.sbnz.model.models.PossiblePeriods;
+import com.ftn.sbnz.model.models.Period;
+import com.ftn.sbnz.model.events.AnswerProvidedEvent;
+import com.ftn.sbnz.model.models.QuestionNode;
+import com.ftn.sbnz.model.models.NextQuestion;
+
+rule "rule_0_soviet_union_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "soviet_union", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("republic_of_lithuania") };
+end
+
+rule "rule_0_soviet_union_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "soviet_union", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1917, 1991) };
+    insert(new NextQuestion("republic_of_lithuania"));
+end
+
+rule "rule_0_soviet_union_No_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "soviet_union", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("kingdom_of_italy") };
+end
+
+rule "rule_0_soviet_union_No_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "soviet_union", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1917, 1991) };
+    insert(new NextQuestion("kingdom_of_italy"));
+end
+
+rule "rule_1_republic_of_lithuania_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_lithuania", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("kingdom_of_serbs_croats_and_slovenes") };
+end
+
+rule "rule_1_republic_of_lithuania_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_lithuania", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1918, 1940) };
+    insert(new NextQuestion("kingdom_of_serbs_croats_and_slovenes"));
+end
+
+rule "rule_1_republic_of_lithuania_No_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_lithuania", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("republic_of_malta") };
+end
+
+rule "rule_1_republic_of_lithuania_No_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_lithuania", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1918, 1940) };
+    insert(new NextQuestion("republic_of_malta"));
+end
+
+rule "rule_2_kingdom_of_serbs_croats_and_slovenes_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1929-1940") };
+end
+
+rule "rule_2_kingdom_of_serbs_croats_and_slovenes_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1920, 1941) };
+    insert(new NextQuestion("P1929-1940"));
+end
+
+rule "rule_2_kingdom_of_serbs_croats_and_slovenes_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1918-1920") };
+end
+
+rule "rule_2_kingdom_of_serbs_croats_and_slovenes_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1920, 1941) };
+    insert(new NextQuestion("P1918-1920"));
+end
+
+rule "rule_3_republic_of_malta_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_malta", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("belize") };
+end
+
+rule "rule_3_republic_of_malta_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_malta", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1974, 2025) };
+    insert(new NextQuestion("belize"));
+end
+
+rule "rule_3_republic_of_malta_No_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_malta", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("federal_peoples_republic_of_yugoslavia") };
+end
+
+rule "rule_3_republic_of_malta_No_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_malta", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1974, 2025) };
+    insert(new NextQuestion("federal_peoples_republic_of_yugoslavia"));
+end
+
+rule "rule_4_belize_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "belize", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1981-1991") };
+end
+
+rule "rule_4_belize_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "belize", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1981, 2025) };
+    insert(new NextQuestion("P1981-1991"));
+end
+
+rule "rule_4_belize_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "belize", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1974-1981") };
+end
+
+rule "rule_4_belize_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "belize", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1981, 2025) };
+    insert(new NextQuestion("P1974-1981"));
+end
+
+rule "rule_5_federal_peoples_republic_of_yugoslavia_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "federal_peoples_republic_of_yugoslavia", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("israel") };
+end
+
+rule "rule_5_federal_peoples_republic_of_yugoslavia_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "federal_peoples_republic_of_yugoslavia", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1947, 1963) };
+    insert(new NextQuestion("israel"));
+end
+
+rule "rule_5_federal_peoples_republic_of_yugoslavia_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "federal_peoples_republic_of_yugoslavia", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1947-1963") };
+end
+
+rule "rule_5_federal_peoples_republic_of_yugoslavia_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "federal_peoples_republic_of_yugoslavia", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1947, 1963) };
+    insert(new NextQuestion("P1947-1963"));
+end
+
+rule "rule_6_israel_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "israel", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1963-1973") };
+end
+
+rule "rule_6_israel_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "israel", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1948, 2025) };
+    insert(new NextQuestion("P1963-1973"));
+end
+
+rule "rule_6_israel_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "israel", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1940-1947") };
+end
+
+rule "rule_6_israel_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "israel", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1948, 2025) };
+    insert(new NextQuestion("P1940-1947"));
+end
+
+rule "rule_7_kingdom_of_italy_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_italy", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("congo_free_state") };
+end
+
+rule "rule_7_kingdom_of_italy_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_italy", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1901, 1946) };
+    insert(new NextQuestion("congo_free_state"));
+end
+
+rule "rule_7_kingdom_of_italy_No_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_italy", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("ukraine") };
+end
+
+rule "rule_7_kingdom_of_italy_No_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_italy", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1901, 1946) };
+    insert(new NextQuestion("ukraine"));
+end
+
+rule "rule_8_congo_free_state_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "congo_free_state", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("sokoto_caliphate") };
+end
+
+rule "rule_8_congo_free_state_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "congo_free_state", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1885, 1908) };
+    insert(new NextQuestion("sokoto_caliphate"));
+end
+
+rule "rule_8_congo_free_state_No_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "congo_free_state", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("german_empire") };
+end
+
+rule "rule_8_congo_free_state_No_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "congo_free_state", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1885, 1908) };
+    insert(new NextQuestion("german_empire"));
+end
+
+rule "rule_9_sokoto_caliphate_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sokoto_caliphate", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("emirate_of_nejd") };
+end
+
+rule "rule_9_sokoto_caliphate_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sokoto_caliphate", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1804, 1900) };
+    insert(new NextQuestion("emirate_of_nejd"));
+end
+
+rule "rule_9_sokoto_caliphate_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sokoto_caliphate", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1900-1908") };
+end
+
+rule "rule_9_sokoto_caliphate_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sokoto_caliphate", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1804, 1900) };
+    insert(new NextQuestion("P1900-1908"));
+end
+
+rule "rule_10_emirate_of_nejd_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "emirate_of_nejd", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1885-1891") };
+end
+
+rule "rule_10_emirate_of_nejd_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "emirate_of_nejd", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1824, 1891) };
+    insert(new NextQuestion("P1885-1891"));
+end
+
+rule "rule_10_emirate_of_nejd_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "emirate_of_nejd", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1892-1900") };
+end
+
+rule "rule_10_emirate_of_nejd_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "emirate_of_nejd", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1824, 1891) };
+    insert(new NextQuestion("P1892-1900"));
+end
+
+rule "rule_11_german_empire_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "german_empire", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("sheikdom_of_kuwait") };
+end
+
+rule "rule_11_german_empire_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "german_empire", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1871, 1918) };
+    insert(new NextQuestion("sheikdom_of_kuwait"));
+end
+
+rule "rule_11_german_empire_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "german_empire", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1861-1870") };
+end
+
+rule "rule_11_german_empire_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "german_empire", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1871, 1918) };
+    insert(new NextQuestion("P1861-1870"));
+end
+
+rule "rule_12_sheikdom_of_kuwait_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sheikdom_of_kuwait", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1908-1918") };
+end
+
+rule "rule_12_sheikdom_of_kuwait_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sheikdom_of_kuwait", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1899, 1991) };
+    insert(new NextQuestion("P1908-1918"));
+end
+
+rule "rule_12_sheikdom_of_kuwait_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sheikdom_of_kuwait", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1871-1885") };
+end
+
+rule "rule_12_sheikdom_of_kuwait_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sheikdom_of_kuwait", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1899, 1991) };
+    insert(new NextQuestion("P1871-1885"));
+end
+
+rule "rule_13_ukraine_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "ukraine", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("republic_of_serbia") };
+end
+
+rule "rule_13_ukraine_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "ukraine", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1991, 2025) };
+    insert(new NextQuestion("republic_of_serbia"));
+end
+
+rule "rule_13_ukraine_No_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "ukraine", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("kingdom_of_belgium") };
+end
+
+rule "rule_13_ukraine_No_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "ukraine", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1991, 2025) };
+    insert(new NextQuestion("kingdom_of_belgium"));
+end
+
+rule "rule_14_republic_of_serbia_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_serbia", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("south_sudan") };
+end
+
+rule "rule_14_republic_of_serbia_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_serbia", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(2006, 2025) };
+    insert(new NextQuestion("south_sudan"));
+end
+
+rule "rule_14_republic_of_serbia_No_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_serbia", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("bosnia_and_herzegovina") };
+end
+
+rule "rule_14_republic_of_serbia_No_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "republic_of_serbia", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(2006, 2025) };
+    insert(new NextQuestion("bosnia_and_herzegovina"));
+end
+
+rule "rule_15_south_sudan_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "south_sudan", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P2011-2025") };
+end
+
+rule "rule_15_south_sudan_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "south_sudan", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(2011, 2025) };
+    insert(new NextQuestion("P2011-2025"));
+end
+
+rule "rule_15_south_sudan_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "south_sudan", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P2006-2010") };
+end
+
+rule "rule_15_south_sudan_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "south_sudan", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(2011, 2025) };
+    insert(new NextQuestion("P2006-2010"));
+end
+
+rule "rule_16_bosnia_and_herzegovina_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "bosnia_and_herzegovina", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P2006-2010") };
+end
+
+rule "rule_16_bosnia_and_herzegovina_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "bosnia_and_herzegovina", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1995, 2006) };
+    insert(new NextQuestion("P2006-2010"));
+end
+
+rule "rule_16_bosnia_and_herzegovina_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "bosnia_and_herzegovina", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1995-2006") };
+end
+
+rule "rule_16_bosnia_and_herzegovina_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "bosnia_and_herzegovina", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1995, 2006) };
+    insert(new NextQuestion("P1995-2006"));
+end
+
+rule "rule_17_kingdom_of_belgium_Yes_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_belgium", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("sikh_empire") };
+end
+
+rule "rule_17_kingdom_of_belgium_Yes_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_belgium", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1831, 2025) };
+    insert(new NextQuestion("sikh_empire"));
+end
+
+rule "rule_17_kingdom_of_belgium_No_LEAF"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_belgium", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("grand_duchy_of_luxembourg") };
+end
+
+rule "rule_17_kingdom_of_belgium_No_BRANCH"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "kingdom_of_belgium", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1831, 2025) };
+    insert(new NextQuestion("grand_duchy_of_luxembourg"));
+end
+
+rule "rule_18_sikh_empire_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sikh_empire", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1849-1860") };
+end
+
+rule "rule_18_sikh_empire_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sikh_empire", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1781, 1849) };
+    insert(new NextQuestion("P1849-1860"));
+end
+
+rule "rule_18_sikh_empire_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sikh_empire", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1831-1848") };
+end
+
+rule "rule_18_sikh_empire_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "sikh_empire", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1781, 1849) };
+    insert(new NextQuestion("P1831-1848"));
+end
+
+rule "rule_19_grand_duchy_of_luxembourg_Yes_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "grand_duchy_of_luxembourg", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1815-1830") };
+end
+
+rule "rule_19_grand_duchy_of_luxembourg_Yes_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "grand_duchy_of_luxembourg", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(1815, 2025) };
+    insert(new NextQuestion("P1815-1830"));
+end
+
+rule "rule_19_grand_duchy_of_luxembourg_No_LEAF"
+    enabled true
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "grand_duchy_of_luxembourg", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("P1808-1814") };
+end
+
+rule "rule_19_grand_duchy_of_luxembourg_No_BRANCH"
+    enabled false
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "grand_duchy_of_luxembourg", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(1815, 2025) };
+    insert(new NextQuestion("P1808-1814"));
+end
+
+

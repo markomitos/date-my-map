@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+
+    <kbase name="datingKbase" packages="rules">
+        <ksession name="datingSession" default="true"/>
+    </kbase>
+
+    <kbase name="bwBase" packages="backward">
+        <ksession name="bwKsession"/>
+    </kbase>
+
+    <kbase name="cepKbase" eventProcessingMode="stream" packages="cep">
+        <ksession name="cepKsession" clockType="pseudo"/>
+    </kbase>
+
+</kmodule>

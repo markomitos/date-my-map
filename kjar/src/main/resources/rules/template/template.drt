@@ -1,0 +1,65 @@
+template header
+name
+questionId
+startDate
+endDate
+answerYes
+answerNo
+
+package rules;
+
+import com.ftn.sbnz.model.models.PossiblePeriods;
+import com.ftn.sbnz.model.models.Period;
+import com.ftn.sbnz.model.events.AnswerProvidedEvent;
+import com.ftn.sbnz.model.models.QuestionNode;
+import com.ftn.sbnz.model.models.NextQuestion;
+
+template "question_periods"
+
+// LEAF Rule: This rule is enabled ONLY when answerYes starts with "P".
+rule "rule_@{row.rowNumber}_@{questionId}_Yes_LEAF"
+    enabled @{answerYes.startsWith("P")}
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "@{questionId}", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("@{answerYes}") };
+end
+
+// BRANCH Rule: This rule is enabled ONLY when answerYes does NOT start with "P".
+rule "rule_@{row.rowNumber}_@{questionId}_Yes_BRANCH"
+    enabled @{!answerYes.startsWith("P")}
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "@{questionId}", answer == "Yes")
+    $p: PossiblePeriods()
+then
+    modify($p) { intersectWith(@{startDate}, @{endDate}) };
+    insert(new NextQuestion("@{answerYes}"));
+end
+
+// LEAF Rule: This rule is enabled ONLY when answerNo starts with "P".
+rule "rule_@{row.rowNumber}_@{questionId}_No_LEAF"
+    enabled @{answerNo.startsWith("P")}
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "@{questionId}", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { setFinalPeriod("@{answerNo}") };
+end
+
+// BRANCH Rule: This rule is enabled ONLY when answerNo does NOT start with "P".
+rule "rule_@{row.rowNumber}_@{questionId}_No_BRANCH"
+    enabled @{!answerNo.startsWith("P")}
+    no-loop
+when
+    AnswerProvidedEvent(questionId == "@{questionId}", answer == "No")
+    $p: PossiblePeriods()
+then
+    modify($p) { subtractWith(@{startDate}, @{endDate}) };
+    insert(new NextQuestion("@{answerNo}"));
+end
+
+end template
