@@ -23,4 +23,9 @@ export class DatingService {
     return this.http.post<DatingResponse>(`${this.apiUrl}/answer`, request);
   }
 
+  /** Finds the historical decision path for a given year. */
+  getHistoricalPath(year: number): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/path/${year}`);
+  }
+
 }

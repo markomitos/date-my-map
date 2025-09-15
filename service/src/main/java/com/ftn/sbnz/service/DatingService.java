@@ -3,14 +3,12 @@ package com.ftn.sbnz.service;
 import com.ftn.sbnz.model.dto.AnswerRequest;
 import com.ftn.sbnz.model.dto.DatingResponse;
 import com.ftn.sbnz.model.events.AnswerProvidedEvent;
-import com.ftn.sbnz.model.models.NextQuestion;
-import com.ftn.sbnz.model.models.Period;
-import com.ftn.sbnz.model.models.PossiblePeriods;
-import com.ftn.sbnz.model.models.QuestionNode;
+import com.ftn.sbnz.model.models.*;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.QueryResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +18,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 @Service
 public class DatingService {
@@ -104,6 +100,28 @@ public class DatingService {
 		}
 	}
 
+	public List<String> getHistoricalPathForYear(int year) {
+		KieSession kieSession = kieContainer.newKieSession("bwKsession");
+
+		try {
+			questionRepository.values().forEach(kieSession::insert);
+			kieSession.insert(new FindPathForYear(year));
+			kieSession.fireAllRules();
+
+			QueryResults results = kieSession.getQueryResults("Get Final Path");
+
+			if (results.size() > 0) {
+				FinalPath finalPath = (FinalPath) results.iterator().next().get("$fp");
+				return finalPath.getPath();
+			}
+
+			return new ArrayList<>();
+
+		} finally {
+			kieSession.dispose();
+		}
+	}
+
 	private Map<String, QuestionNode> createQuestionRepository() {
 		Map<String, QuestionNode> repo = new HashMap<>();
 		String dataPath = "/data/data.csv";
@@ -128,7 +146,7 @@ public class DatingService {
 				repo.put(questionId, new QuestionNode(questionId, questionText, answerYes, answerNo));
 			}
 		} catch (IOException e) {
-			throw new RuntimeException("Failed to read or parse countries.csv", e);
+			throw new RuntimeException("Failed to read or parse data.csv", e);
 		}
 		log.info("Successfully loaded {} questions into the repository.", repo.size());
 		return repo;

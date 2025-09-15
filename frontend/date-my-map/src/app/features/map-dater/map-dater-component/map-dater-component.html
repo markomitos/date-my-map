@@ -6,21 +6,30 @@
       <p>Discover the age of your historical maps.</p>
     </div>
 
+    <div class="view-toggle">
+      <button (click)="setMode('quiz')" [class.active]="displayMode() === 'quiz'" class="btn">
+        Interactive Quiz
+      </button>
+      <button (click)="setMode('pathFinder')" [class.active]="displayMode() === 'pathFinder'" class="btn">
+        Find Path by Year
+      </button>
+    </div>
+
 
     <div *ngIf="isLoading()" class="loader-overlay">
-      <div *ngIf="isLoading()" class="spinner"></div>
+      <div class="spinner"></div>
     </div>
 
 
     <div *ngIf="error()" class="error-message" role="alert">
       <strong>An error occurred:</strong>
-      <span >{{ error() }}</span>
+      <span>{{ error() }}</span>
     </div>
 
-    <div class="content-area">
+    <div *ngIf="displayMode() === 'quiz'" class="content-area">
 
       <div *ngIf="datingGameState() === 'initial'" class="initial-state">
-         <p>Answer a series of questions to narrow down the time frame of your map.</p>
+        <p>Answer a series of questions to narrow down the time frame of your map.</p>
         <button (click)="startDating()" class="btn btn-primary" id="start">
           Start Session
         </button>
@@ -30,30 +39,54 @@
         <div class="period-display">
           <h3>Possible Period(s)</h3>
           <p>{{ formattedPeriods() }}</p>
-          </div>
-          <div class="question-box">
-             <h2>{{ currentQuestion() }}</h2>
-          </div>
-          <div class="button-group">
-            <button (click)="submitAnswer('Yes')" class="btn btn-yes">
-              Yes
-            </button>
-            <button (click)="submitAnswer('No')" class="btn btn-no">
-              No
-            </button>
-          </div>
         </div>
+        <div class="question-box">
+          <h2>{{ currentQuestion() }}</h2>
+        </div>
+        <div class="button-group">
+          <button (click)="submitAnswer('Yes')" class="btn btn-yes">Yes</button>
+          <button (click)="submitAnswer('No')" class="btn btn-no">No</button>
+        </div>
+      </div>
 
       <div *ngIf="(datingGameState() === 'finished')" class="finished-state">
         <h2>Dating Complete!</h2>
         <p class="subtitle">The map is likely from the period:</p>
-        <p class="final-period" >
-      {{ this.finalPeriod }}
-      </p>
-      <button (click)="restartDating()" class="btn btn-secondary" id="restart">
-        Start New Session
-      </button>
+        <p class="final-period">{{ finalPeriod }}</p>
+        <button (click)="restartDating()" class="btn btn-secondary" id="restart">
+          Start New Session
+        </button>
       </div>
     </div>
+
+
+    <div *ngIf="displayMode() === 'pathFinder'" class="content-area">
+      <div class="path-finder-state">
+        <h3>Find Historical Path by Year</h3>
+        <p>Enter a year to see the historical context based on the knowledge base.</p>
+        <div class="input-group">
+          <input
+            type="number"
+            class="year-input"
+            placeholder="Enter year (e.g., 1930)"
+            min="1800"
+            max="2025"
+            [value]="yearInput()"
+            (input)="onYearChange($event)"
+          />
+          <button (click)="findPathByYear()" class="btn btn-primary" [disabled]="!yearInput()||!enabled()">
+            Find Path
+          </button>
+        </div>
+
+        <div *ngIf="historicalPath()" class="result-area">
+          <h4>Historical Path for {{ yearInput() }}:</h4>
+          <ul class="result-list">
+            <li *ngFor="let step of historicalPath()">{{ step }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

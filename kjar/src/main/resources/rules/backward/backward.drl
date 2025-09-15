@@ -1,1 +1,69 @@
 package backward;
+
+import com.ftn.sbnz.model.models.QuestionNode;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
+import com.ftn.sbnz.model.models.FinalPath;
+import com.ftn.sbnz.model.models.FindPathForYear;
+
+declare PathResult
+    questionId: String
+    text: String
+    answer: String
+end
+
+
+query "Get Final Path"
+    $fp: FinalPath()
+end
+
+
+rule "Find Starting Leaf Node"
+    salience 10
+    when
+        $goal: FindPathForYear($year: year)
+        $node: QuestionNode(
+            ( (nextQuestionIdOnYes.startsWith("P") && Integer.parseInt(nextQuestionIdOnYes.substring(1, 5)) <= $year && Integer.parseInt(nextQuestionIdOnYes.substring(6, 10)) >= $year) ||
+              (nextQuestionIdOnNo.startsWith("P") && Integer.parseInt(nextQuestionIdOnNo.substring(1, 5)) <= $year && Integer.parseInt(nextQuestionIdOnNo.substring(6, 10)) >= $year) )
+        )
+    then
+        String answer_period = ($node.getNextQuestionIdOnYes().startsWith("P") && Integer.parseInt($node.getNextQuestionIdOnYes().substring(1, 5)) <= $year && Integer.parseInt($node.getNextQuestionIdOnYes().substring(6, 10)) >= $year)
+                        ? "Yes"
+                        : "No";
+        insert(new PathResult($node.getId(), $node.getText(), answer_period));
+        delete($goal);
+end
+
+rule "Trace Path Upwards"
+    when
+        $currentResult: PathResult( $childId: questionId )
+        $parent: QuestionNode(
+            id != $childId,
+            ( nextQuestionIdOnYes == $childId || nextQuestionIdOnNo == $childId )
+        )
+    then
+        String parentAnswer = $parent.getNextQuestionIdOnYes().equals($childId) ? "Yes" : "No";
+        insert(new PathResult($parent.getId(), $parent.getText(), parentAnswer));
+end
+
+
+rule "Accumulate and Sort Path"
+    salience -10
+    when
+        not FindPathForYear()
+
+        $pathList: List() from accumulate(
+            PathResult( $q: questionId, $t: text, $a: answer ),
+            collectList(new PathResult($q, $t, $a))
+        )
+    then
+        List<PathResult> mutablePathList = new ArrayList<>($pathList);
+
+        List<String> formattedPath = (List<String>) mutablePathList.stream()
+            .map(pr -> "On the question '" + ((PathResult)pr).getText() + "', the answer was '" + ((PathResult)pr).getAnswer() + "'")
+            .toList();
+
+        insert(new FinalPath(formattedPath));
+end

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/dating")
 public class DatingController {
@@ -41,5 +43,17 @@ public class DatingController {
 		log.info("Received answer: {}", answerRequest);
 		DatingResponse response = datingService.processAnswer(answerRequest);
 		return ResponseEntity.ok(response);
+	}
+
+	/**
+	 * Finds the historical decision path for a given year using backward chaining.
+	 * @param year The year to investigate.
+	 * @return A list of strings describing the questions and answers that define that time period.
+	 */
+	@GetMapping("/path/{year}")
+	public ResponseEntity<List<String>> getHistoricalPath(@PathVariable int year) {
+		log.info("Request received to find historical path for year: {}", year);
+		List<String> path = datingService.getHistoricalPathForYear(year);
+		return ResponseEntity.ok(path);
 	}
 }
