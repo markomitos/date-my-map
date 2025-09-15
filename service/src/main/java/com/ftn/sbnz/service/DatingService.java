@@ -135,7 +135,7 @@ public class DatingService {
 			reader.readLine();
 			String line;
 			while ((line = reader.readLine()) != null) {
-				String[] values = line.split(",");
+				String[] values = line.split("\\|");
 				// CSV columns: QuestionId,Name,StartDate,EndDate,AnswerYes,AnswerNo
 
 				String name = values[0];

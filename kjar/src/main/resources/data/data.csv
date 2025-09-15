@@ -1,21 +1,21 @@
-Name,QuestionId,StartDate,EndDate,AnswerYes,AnswerNo
-Soviet Union,soviet_union,1917,1991,republic_of_lithuania,kingdom_of_italy
-Republic of Lithuania,republic_of_lithuania,1918,1940,kingdom_of_serbs_croats_and_slovenes,republic_of_malta
-Kingdom of Serbs; Croats and Slovenes,kingdom_of_serbs_croats_and_slovenes,1929,1941,P1929-1940,P1919-1928
-Republic of Malta,republic_of_malta,1974,2025,belize,federal_peoples_republic_of_yugoslavia
-Belize,belize,1981,2025,P1981-1991,P1974-1980
-Federal People's Republic of Yugoslavia,federal_peoples_republic_of_yugoslavia,1947,1963,israel,P1947-1963
-Israel,israel,1948,2025,P1964-1973,P1941-1946
-Kingdom of Italy,kingdom_of_italy,1861,1946,congo_free_state,ukraine
-Congo Free State,congo_free_state,1885,1908,sokoto_caliphate,german_empire
-Sokoto Caliphate,sokoto_caliphate,1804,1900,emirate_of_nejd,P1901-1908
-Emirate of Nejd,emirate_of_nejd,1824,1891,P1885-1891,P1892-1900
-German Empire,german_empire,1871,1918,sheikdom_of_kuwait,P1861-1870
-Sheikdom of Kuwait,sheikdom_of_kuwait,1899,1961,P1909-1918,P1871-1884
-Ukraine,ukraine,1991,2025,republic_of_serbia,kingdom_of_belgium
-Republic of Serbia,republic_of_serbia,2006,2025,south_sudan,bosnia_and_herzegovina
-South Sudan,south_sudan,2011,2025,P2011-2025,P2006-2010
-Bosnia and Herzegovina,bosnia_and_herzegovina,1995,2006,P1995-2005,P1992-1994
-Kingdom of Belgium,kingdom_of_belgium,1831,2025,sikh_empire,grand_duchy_of_luxembourg
-Sikh Empire,sikh_empire,1761,1849,P1849-1860,P1831-1848
-Grand Duchy of Luxembourg,grand_duchy_of_luxembourg,1815,2025,P1815-1830,P1800-1814
+Name|QuestionId|StartDate|EndDate|AnswerYes|AnswerNo
+Soviet Union|soviet_union|1917|1991|republic_of_lithuania|kingdom_of_italy
+Republic of Lithuania|republic_of_lithuania|1918|1940|kingdom_of_serbs_croats_and_slovenes|republic_of_malta
+Kingdom of Serbs, Croats and Slovenes|kingdom_of_serbs_croats_and_slovenes|1929|1941|P1929-1940|P1919-1928
+Republic of Malta|republic_of_malta|1974|2025|belize|federal_peoples_republic_of_yugoslavia
+Belize|belize|1981|2025|P1981-1991|P1974-1980
+Federal People's Republic of Yugoslavia|federal_peoples_republic_of_yugoslavia|1947|1963|israel|P1947-1963
+Israel|israel|1948|2025|P1964-1973|P1941-1946
+Kingdom of Italy|kingdom_of_italy|1861|1946|congo_free_state|ukraine
+Congo Free State|congo_free_state|1885|1908|sokoto_caliphate|german_empire
+Sokoto Caliphate|sokoto_caliphate|1804|1900|emirate_of_nejd|P1901-1908
+Emirate of Nejd|emirate_of_nejd|1824|1891|P1885-1891|P1892-1900
+German Empire|german_empire|1871|1918|sheikdom_of_kuwait|P1861-1870
+Sheikdom of Kuwait|sheikdom_of_kuwait|1899|1961|P1909-1918|P1871-1884
+Ukraine|ukraine|1991|2025|republic_of_serbia|kingdom_of_belgium
+Republic of Serbia|republic_of_serbia|2006|2025|south_sudan|bosnia_and_herzegovina
+South Sudan|south_sudan|2011|2025|P2011-2025|P2006-2010
+Bosnia and Herzegovina|bosnia_and_herzegovina|1995|2006|P1995-2005|P1992-1994
+Kingdom of Belgium|kingdom_of_belgium|1831|2025|sikh_empire|grand_duchy_of_luxembourg
+Sikh Empire|sikh_empire|1761|1849|P1849-1860|P1831-1848
+Grand Duchy of Luxembourg|grand_duchy_of_luxembourg|1815|2025|P1815-1830|P1800-1814

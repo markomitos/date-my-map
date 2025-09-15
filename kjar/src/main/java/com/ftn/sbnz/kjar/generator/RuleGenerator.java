@@ -27,7 +27,7 @@ public class RuleGenerator {
                 br.readLine(); // Skip header
                 String line;
                 while ((line = br.readLine()) != null) {
-                    dataRows.add(line.split(","));
+                    dataRows.add(line.split("\\|"));
                 }
             }
         } catch (IOException e) {
