@@ -55,7 +55,7 @@ public class DatingService {
 			throw new IllegalArgumentException("Invalid session ID: " + answerRequest.getSessionId());
 		}
 
-		KieSession kieSession = kieContainer.newKieSession();
+		KieSession kieSession = kieContainer.newKieSession("datingSession");
 
 		String nextQuestionId = null;
 

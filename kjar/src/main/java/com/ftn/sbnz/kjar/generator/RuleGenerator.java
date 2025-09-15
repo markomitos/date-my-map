@@ -12,23 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RuleGenerator {
-//    public static void main(String[] args) {
-//        generateRules();
-//    }
+    public static void main(String[] args) {
+        generateRules();
+    }
 
     public static void generateRules(){
         InputStream templateStream = RuleGenerator.class.getResourceAsStream("/rules/template/template.drt");
         InputStream dataStream = RuleGenerator.class.getResourceAsStream("/data/data.csv");
 
         List<String[]> dataRows = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(dataStream))) {
-            br.readLine(); // Skip header
-            String line;
-            while ((line = br.readLine()) != null) {
-                dataRows.add(line.split(","));
+        try {
+            assert dataStream != null;
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(dataStream))) {
+                br.readLine(); // Skip header
+                String line;
+                while ((line = br.readLine()) != null) {
+                    dataRows.add(line.split(","));
+                }
             }
         } catch (IOException e) {
-
+            return;
         }
 
         DataProvider dataProvider = new ArrayDataProvider(dataRows.toArray(new String[0][]));
@@ -46,9 +49,12 @@ public class RuleGenerator {
             throw new RuntimeException(e);
         }
 
-        Path projectDir = classesDir.toPath().getParent().getParent();
+        String moduleBasePath = System.getProperty("project.basedir");
+        if (moduleBasePath == null) {
+            throw new IllegalStateException("System property 'project.basedir' is not set. This script should be run via Maven.");
+        }
 
-        Path outputPath = projectDir.resolve(Paths.get("src", "main", "resources", "rules", "generated-rules.drl"));
+        Path outputPath = Paths.get(moduleBasePath, "src", "main", "resources", "rules", "generated-rules.drl");
 
         File outputFile = outputPath.toFile();
         outputFile.getParentFile().mkdirs();

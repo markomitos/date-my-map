@@ -106,7 +106,7 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { intersectWith(1920, 1941) };
+    modify($p) { intersectWith(1929, 1941) };
     insert(new NextQuestion("P1929-1940"));
 end
 
@@ -117,7 +117,7 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1918-1920") };
+    modify($p) { setFinalPeriod("P1919-1928") };
 end
 
 rule "rule_2_kingdom_of_serbs_croats_and_slovenes_No_BRANCH"
@@ -127,8 +127,8 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { subtractWith(1920, 1941) };
-    insert(new NextQuestion("P1918-1920"));
+    modify($p) { subtractWith(1929, 1941) };
+    insert(new NextQuestion("P1919-1928"));
 end
 
 rule "rule_3_republic_of_malta_Yes_LEAF"
@@ -201,7 +201,7 @@ when
     AnswerProvidedEvent(questionId == "belize", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1974-1981") };
+    modify($p) { setFinalPeriod("P1974-1980") };
 end
 
 rule "rule_4_belize_No_BRANCH"
@@ -212,7 +212,7 @@ when
     $p: PossiblePeriods()
 then
     modify($p) { subtractWith(1981, 2025) };
-    insert(new NextQuestion("P1974-1981"));
+    insert(new NextQuestion("P1974-1980"));
 end
 
 rule "rule_5_federal_peoples_republic_of_yugoslavia_Yes_LEAF"
@@ -264,7 +264,7 @@ when
     AnswerProvidedEvent(questionId == "israel", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1963-1973") };
+    modify($p) { setFinalPeriod("P1964-1973") };
 end
 
 rule "rule_6_israel_Yes_BRANCH"
@@ -275,7 +275,7 @@ when
     $p: PossiblePeriods()
 then
     modify($p) { intersectWith(1948, 2025) };
-    insert(new NextQuestion("P1963-1973"));
+    insert(new NextQuestion("P1964-1973"));
 end
 
 rule "rule_6_israel_No_LEAF"
@@ -285,7 +285,7 @@ when
     AnswerProvidedEvent(questionId == "israel", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1940-1947") };
+    modify($p) { setFinalPeriod("P1941-1946") };
 end
 
 rule "rule_6_israel_No_BRANCH"
@@ -296,7 +296,7 @@ when
     $p: PossiblePeriods()
 then
     modify($p) { subtractWith(1948, 2025) };
-    insert(new NextQuestion("P1940-1947"));
+    insert(new NextQuestion("P1941-1946"));
 end
 
 rule "rule_7_kingdom_of_italy_Yes_LEAF"
@@ -316,7 +316,7 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_italy", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { intersectWith(1901, 1946) };
+    modify($p) { intersectWith(1861, 1946) };
     insert(new NextQuestion("congo_free_state"));
 end
 
@@ -337,7 +337,7 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_italy", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { subtractWith(1901, 1946) };
+    modify($p) { subtractWith(1861, 1946) };
     insert(new NextQuestion("ukraine"));
 end
 
@@ -411,7 +411,7 @@ when
     AnswerProvidedEvent(questionId == "sokoto_caliphate", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1900-1908") };
+    modify($p) { setFinalPeriod("P1901-1908") };
 end
 
 rule "rule_9_sokoto_caliphate_No_BRANCH"
@@ -422,7 +422,7 @@ when
     $p: PossiblePeriods()
 then
     modify($p) { subtractWith(1804, 1900) };
-    insert(new NextQuestion("P1900-1908"));
+    insert(new NextQuestion("P1901-1908"));
 end
 
 rule "rule_10_emirate_of_nejd_Yes_LEAF"
@@ -516,7 +516,7 @@ when
     AnswerProvidedEvent(questionId == "sheikdom_of_kuwait", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1908-1918") };
+    modify($p) { setFinalPeriod("P1909-1918") };
 end
 
 rule "rule_12_sheikdom_of_kuwait_Yes_BRANCH"
@@ -526,8 +526,8 @@ when
     AnswerProvidedEvent(questionId == "sheikdom_of_kuwait", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { intersectWith(1899, 1991) };
-    insert(new NextQuestion("P1908-1918"));
+    modify($p) { intersectWith(1899, 1961) };
+    insert(new NextQuestion("P1909-1918"));
 end
 
 rule "rule_12_sheikdom_of_kuwait_No_LEAF"
@@ -537,7 +537,7 @@ when
     AnswerProvidedEvent(questionId == "sheikdom_of_kuwait", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1871-1885") };
+    modify($p) { setFinalPeriod("P1871-1884") };
 end
 
 rule "rule_12_sheikdom_of_kuwait_No_BRANCH"
@@ -547,8 +547,8 @@ when
     AnswerProvidedEvent(questionId == "sheikdom_of_kuwait", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { subtractWith(1899, 1991) };
-    insert(new NextQuestion("P1871-1885"));
+    modify($p) { subtractWith(1899, 1961) };
+    insert(new NextQuestion("P1871-1884"));
 end
 
 rule "rule_13_ukraine_Yes_LEAF"
@@ -684,7 +684,7 @@ when
     AnswerProvidedEvent(questionId == "bosnia_and_herzegovina", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P2006-2010") };
+    modify($p) { setFinalPeriod("P1995-2005") };
 end
 
 rule "rule_16_bosnia_and_herzegovina_Yes_BRANCH"
@@ -695,7 +695,7 @@ when
     $p: PossiblePeriods()
 then
     modify($p) { intersectWith(1995, 2006) };
-    insert(new NextQuestion("P2006-2010"));
+    insert(new NextQuestion("P1995-2005"));
 end
 
 rule "rule_16_bosnia_and_herzegovina_No_LEAF"
@@ -705,7 +705,7 @@ when
     AnswerProvidedEvent(questionId == "bosnia_and_herzegovina", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1995-2006") };
+    modify($p) { setFinalPeriod("P1992-1994") };
 end
 
 rule "rule_16_bosnia_and_herzegovina_No_BRANCH"
@@ -716,7 +716,7 @@ when
     $p: PossiblePeriods()
 then
     modify($p) { subtractWith(1995, 2006) };
-    insert(new NextQuestion("P1995-2006"));
+    insert(new NextQuestion("P1992-1994"));
 end
 
 rule "rule_17_kingdom_of_belgium_Yes_LEAF"
@@ -778,7 +778,7 @@ when
     AnswerProvidedEvent(questionId == "sikh_empire", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { intersectWith(1781, 1849) };
+    modify($p) { intersectWith(1761, 1849) };
     insert(new NextQuestion("P1849-1860"));
 end
 
@@ -799,7 +799,7 @@ when
     AnswerProvidedEvent(questionId == "sikh_empire", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { subtractWith(1781, 1849) };
+    modify($p) { subtractWith(1761, 1849) };
     insert(new NextQuestion("P1831-1848"));
 end
 
@@ -831,7 +831,7 @@ when
     AnswerProvidedEvent(questionId == "grand_duchy_of_luxembourg", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1808-1814") };
+    modify($p) { setFinalPeriod("P1800-1814") };
 end
 
 rule "rule_19_grand_duchy_of_luxembourg_No_BRANCH"
@@ -842,7 +842,7 @@ when
     $p: PossiblePeriods()
 then
     modify($p) { subtractWith(1815, 2025) };
-    insert(new NextQuestion("P1808-1814"));
+    insert(new NextQuestion("P1800-1814"));
 end
 
 
