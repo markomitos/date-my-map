@@ -96,7 +96,7 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1929-1940") };
+    modify($p) { setFinalPeriod("P1919-1928") };
 end
 
 rule "rule_2_kingdom_of_serbs_croats_and_slovenes_Yes_BRANCH"
@@ -106,8 +106,8 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "Yes")
     $p: PossiblePeriods()
 then
-    modify($p) { intersectWith(1929, 1941) };
-    insert(new NextQuestion("P1929-1940"));
+    modify($p) { intersectWith(1919, 1929) };
+    insert(new NextQuestion("P1919-1928"));
 end
 
 rule "rule_2_kingdom_of_serbs_croats_and_slovenes_No_LEAF"
@@ -117,7 +117,7 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { setFinalPeriod("P1919-1928") };
+    modify($p) { setFinalPeriod("P1929-1940") };
 end
 
 rule "rule_2_kingdom_of_serbs_croats_and_slovenes_No_BRANCH"
@@ -127,8 +127,8 @@ when
     AnswerProvidedEvent(questionId == "kingdom_of_serbs_croats_and_slovenes", answer == "No")
     $p: PossiblePeriods()
 then
-    modify($p) { subtractWith(1929, 1941) };
-    insert(new NextQuestion("P1919-1928"));
+    modify($p) { subtractWith(1919, 1929) };
+    insert(new NextQuestion("P1929-1940"));
 end
 
 rule "rule_3_republic_of_malta_Yes_LEAF"

@@ -1,7 +1,7 @@
 Name|QuestionId|StartDate|EndDate|AnswerYes|AnswerNo
 Soviet Union|soviet_union|1917|1991|republic_of_lithuania|kingdom_of_italy
 Republic of Lithuania|republic_of_lithuania|1918|1940|kingdom_of_serbs_croats_and_slovenes|republic_of_malta
-Kingdom of Serbs, Croats and Slovenes|kingdom_of_serbs_croats_and_slovenes|1929|1941|P1929-1940|P1919-1928
+Kingdom of Serbs, Croats and Slovenes|kingdom_of_serbs_croats_and_slovenes|1919|1929|P1919-1928|P1929-1940
 Republic of Malta|republic_of_malta|1974|2025|belize|federal_peoples_republic_of_yugoslavia
 Belize|belize|1981|2025|P1981-1991|P1974-1980
 Federal People's Republic of Yugoslavia|federal_peoples_republic_of_yugoslavia|1947|1963|israel|P1947-1963
